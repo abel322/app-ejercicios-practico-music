@@ -1,0 +1,198 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Instrument {
+  PIANO
+  BASS
+  DRUMS
+  GUITAR
+}
+
+enum Difficulty {
+  BASIC
+  INTERMEDIATE
+  ADVANCED
+}
+
+enum Level {
+  BASIC
+  INTERMEDIATE
+  ADVANCED
+}
+
+enum GoalType {
+  DAILY
+  WEEKLY
+}
+
+enum ExerciseStatus {
+  NOT_STARTED
+  IN_PROGRESS
+  MASTERED
+}
+
+model User {
+  id            String      @id @default(uuid())
+  name          String
+  email         String      @unique
+  password      String      // bcrypt hashed
+  instruments   Instrument[]
+  currentLevel  Level       @default(BASIC)
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+  
+  books         Book[]
+  sessions      Session[]
+  goals         Goal[]
+  levelHistory  LevelHistory[]
+  
+  @@index([email])
+}
+
+model Book {
+  id            String      @id @default(uuid())
+  name          String
+  instrument    Instrument
+  description   String      @default("")
+  fileUrl       String      // S3 URL or local path
+  fileKey       String      // S3 key for deletion
+  userId        String
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+  
+  user          User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  exercises     Exercise[]
+  translations  BookTranslation[]
+  
+  @@index([userId])
+  @@index([instrument])
+}
+
+model BookTranslation {
+  id                String      @id @default(uuid())
+  bookId            String
+  language          String      // Código ISO (es, en, fr, etc.)
+  translatedContent String      @db.Text
+  createdAt         DateTime    @default(now())
+  updatedAt         DateTime    @updatedAt
+  
+  book              Book        @relation(fields: [bookId], references: [id], onDelete: Cascade)
+  
+  @@unique([bookId, language])
+  @@index([bookId])
+  @@index([language])
+}
+
+model Exercise {
+  id            String      @id @default(uuid())
+  name          String
+  description   String      @default("")
+  bookId        String
+  pages         String      // "1-5" or "10, 12, 15"
+  difficulty    Difficulty
+  notes         String      @default("")
+  targetTempo   Int?        // BPM objetivo para dominar el ejercicio
+  minMasteryTime Int        @default(300) // Tiempo mínimo en segundos para considerar dominio (default 5 min)
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+  
+  book          Book        @relation(fields: [bookId], references: [id], onDelete: Cascade)
+  sessionExercises SessionExercise[]
+  progress      ExerciseProgress[]
+  
+  @@index([bookId])
+  @@index([difficulty])
+}
+
+model Session {
+  id              String      @id @default(uuid())
+  userId          String
+  date            DateTime
+  durationMinutes Int
+  notes           String      @default("")
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime    @updatedAt
+  
+  user            User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  exercises       SessionExercise[]
+  
+  @@index([userId])
+  @@index([date])
+}
+
+model SessionExercise {
+  id              String      @id @default(uuid())
+  sessionId       String
+  exerciseId      String
+  durationMinutes Int
+  tempo           Int?        // BPM usado en esta sesión
+  
+  session         Session     @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  exercise        Exercise    @relation(fields: [exerciseId], references: [id], onDelete: Restrict)
+  
+  @@unique([sessionId, exerciseId])
+  @@index([sessionId])
+  @@index([exerciseId])
+}
+
+model Goal {
+  id              String      @id @default(uuid())
+  userId          String
+  type            GoalType
+  targetMinutes   Int
+  startDate       DateTime
+  active          Boolean     @default(true)
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime    @updatedAt
+  
+  user            User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  @@index([userId])
+  @@index([active])
+}
+
+model LevelHistory {
+  id              String      @id @default(uuid())
+  userId          String
+  previousLevel   Level
+  newLevel        Level
+  achievedAt      DateTime    @default(now())
+  totalHours      Float
+  consistency     Float       // percentage
+  exerciseVariety Int
+  
+  user            User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  @@index([userId])
+  @@index([achievedAt])
+}
+
+model ExerciseProgress {
+  id                String          @id @default(uuid())
+  userId            String
+  exerciseId        String
+  status            ExerciseStatus  @default(NOT_STARTED)
+  currentTempo      Int?            // BPM actual alcanzado
+  totalPracticeTime Int             @default(0) // Tiempo total practicado en segundos
+  masteryTime       Int             @default(0) // Tiempo practicado al tempo objetivo en segundos
+  lastPracticedAt   DateTime?
+  masteredAt        DateTime?       // Fecha cuando se dominó el ejercicio
+  createdAt         DateTime        @default(now())
+  updatedAt         DateTime        @updatedAt
+  
+  exercise          Exercise        @relation(fields: [exerciseId], references: [id], onDelete: Cascade)
+  
+  @@unique([userId, exerciseId])
+  @@index([userId])
+  @@index([exerciseId])
+  @@index([status])
+}

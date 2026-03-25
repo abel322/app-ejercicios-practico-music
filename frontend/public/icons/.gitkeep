@@ -1,0 +1,12 @@
+# Esta carpeta contiene los iconos de la PWA
+# Los iconos deben ser cuadrados en formato PNG
+# Tamaños requeridos: 72x72, 96x96, 128x128, 144x144, 152x152, 192x192, 384x384, 512x512
+
+# Para generar iconos:
+# 1. Abre frontend/generate-icons.html en un navegador
+# 2. Los iconos se descargarán automáticamente
+# 3. Mueve los archivos descargados a esta carpeta
+
+# O usa una herramienta online como:
+# - https://realfavicongenerator.net/
+# - https://www.pwabuilder.com/imageGenerator

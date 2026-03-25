@@ -1,0 +1,520 @@
+import React, { useState, useEffect, useCallback } from 'react';
+import {
+  Typography,
+  Box,
+  Button,
+  Card,
+  CardContent,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  TextField,
+  Autocomplete,
+  Alert,
+  Paper,
+  Chip,
+} from '@mui/material';
+import {
+  PlayArrow as PlayIcon,
+  Pause as PauseIcon,
+  Stop as StopIcon,
+  MenuBook as BookIcon,
+} from '@mui/icons-material';
+import { exerciseService } from '../services/exerciseService';
+import { bookService } from '../services/bookService';
+import { sessionService } from '../services/sessionService';
+import { useNotification } from '../contexts/NotificationContext';
+import PDFViewer from '../components/PDFViewer';
+import Metronome from '../components/Metronome';
+import type { Exercise } from '../types/exercise.types';
+import type { Book } from '../types/book.types';
+
+const PracticeSession: React.FC = () => {
+  // Estado del ejercicio seleccionado
+  const [exercises, setExercises] = useState<Exercise[]>([]);
+  const [selectedExercise, setSelectedExercise] = useState<Exercise | null>(null);
+  const [selectedBook, setSelectedBook] = useState<Book | null>(null);
+  const [showExerciseSelector, setShowExerciseSelector] = useState(true);
+
+  // Estado del temporizador
+  const [isRunning, setIsRunning] = useState(false);
+  const [isPaused, setIsPaused] = useState(false);
+  const [elapsedSeconds, setElapsedSeconds] = useState(0);
+
+  // Estado del metrónomo
+  const [currentTempo, setCurrentTempo] = useState(120);
+
+  // Estado del formulario de guardado
+  const [showSaveDialog, setShowSaveDialog] = useState(false);
+  const [notes, setNotes] = useState('');
+  const [isSaving, setIsSaving] = useState(false);
+
+  const { showNotification } = useNotification();
+
+  // Cargar ejercicios
+  useEffect(() => {
+    const loadExercises = async () => {
+      try {
+        const data = await exerciseService.getExercises();
+        setExercises(data);
+      } catch (error) {
+        showNotification('Error al cargar ejercicios', 'error');
+      }
+    };
+    loadExercises();
+  }, [showNotification]);
+
+  // Cargar el libro cuando se selecciona un ejercicio
+  useEffect(() => {
+    const loadBook = async () => {
+      if (selectedExercise?.bookId) {
+        try {
+          const book = await bookService.getBook(selectedExercise.bookId);
+          setSelectedBook(book);
+        } catch (error) {
+          showNotification('Error al cargar el libro del ejercicio', 'error');
+        }
+      } else {
+        setSelectedBook(null);
+      }
+    };
+    loadBook();
+  }, [selectedExercise, showNotification]);
+
+  // Temporizador
+  useEffect(() => {
+    let interval: number | null = null;
+
+    if (isRunning && !isPaused) {
+      interval = window.setInterval(() => {
+        setElapsedSeconds((prev) => prev + 1);
+      }, 1000);
+    }
+
+    return () => {
+      if (interval) {
+        clearInterval(interval);
+      }
+    };
+  }, [isRunning, isPaused]);
+
+  // Advertencia antes de salir
+  useEffect(() => {
+    const handleBeforeUnload = (e: BeforeUnloadEvent) => {
+      if (isRunning || elapsedSeconds > 0) {
+        e.preventDefault();
+        e.returnValue = '¿Deseas guardar la sesión de práctica antes de salir?';
+      }
+    };
+
+    window.addEventListener('beforeunload', handleBeforeUnload);
+    return () => window.removeEventListener('beforeunload', handleBeforeUnload);
+  }, [isRunning, elapsedSeconds]);
+
+  // Formatear tiempo
+  const formatTime = (seconds: number): string => {
+    const hours = Math.floor(seconds / 3600);
+    const minutes = Math.floor((seconds % 3600) / 60);
+    const secs = seconds % 60;
+    return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+  };
+
+  // Funciones del temporizador
+  const startTimer = useCallback(() => {
+    if (!selectedExercise) {
+      showNotification('Selecciona un ejercicio primero', 'warning');
+      return;
+    }
+    setIsRunning(true);
+    setIsPaused(false);
+    setShowExerciseSelector(false);
+  }, [selectedExercise, showNotification]);
+
+  const pauseTimer = useCallback(() => {
+    setIsPaused(true);
+  }, []);
+
+  const resumeTimer = useCallback(() => {
+    setIsPaused(false);
+  }, []);
+
+  const stopTimer = useCallback(() => {
+    if (elapsedSeconds === 0) {
+      showNotification('No hay tiempo registrado para guardar', 'warning');
+      return;
+    }
+    setShowSaveDialog(true);
+  }, [elapsedSeconds, showNotification]);
+
+  // Función para guardar sesión
+  const saveSession = useCallback(async () => {
+    if (!selectedExercise) return;
+
+    setIsSaving(true);
+    try {
+      const durationMinutes = Math.round(elapsedSeconds / 60);
+
+      const sessionData = {
+        date: new Date().toISOString(),
+        durationMinutes,
+        exercises: [
+          {
+            exerciseId: selectedExercise.id,
+            durationMinutes,
+          },
+        ],
+        notes: notes.trim(),
+      };
+
+      const response = await sessionService.createSession(sessionData);
+
+      showNotification('Sesión guardada exitosamente', 'success');
+
+      if (response.levelChanged && response.newLevel) {
+        const levelLabels: Record<string, string> = {
+          BASIC: 'Básico',
+          INTERMEDIATE: 'Intermedio',
+          ADVANCED: 'Avanzado',
+        };
+        const levelLabel = levelLabels[response.newLevel] || response.newLevel;
+        showNotification(
+          `🎉 ¡Felicitaciones! Has alcanzado el nivel ${levelLabel}`,
+          'success',
+          7000
+        );
+      }
+
+      if (response.goalsCompleted && response.goalsCompleted.length > 0) {
+        response.goalsCompleted.forEach((goal) => {
+          const goalTypeLabel = goal.type === 'DAILY' ? 'diaria' : 'semanal';
+          showNotification(
+            `🎯 ¡Felicitaciones! Has completado tu meta ${goalTypeLabel} de ${goal.targetMinutes} minutos`,
+            'success',
+            7000
+          );
+        });
+      }
+
+      // Resetear
+      setIsRunning(false);
+      setIsPaused(false);
+      setElapsedSeconds(0);
+      setNotes('');
+      setShowSaveDialog(false);
+      setShowExerciseSelector(true);
+      setSelectedExercise(null);
+      setSelectedBook(null);
+    } catch (error: any) {
+      showNotification(
+        error.message || 'Error al guardar la sesión',
+        'error'
+      );
+    } finally {
+      setIsSaving(false);
+    }
+  }, [elapsedSeconds, selectedExercise, notes, showNotification]);
+
+  const handleCloseSaveDialog = useCallback(() => {
+    if (!isSaving) {
+      setShowSaveDialog(false);
+    }
+  }, [isSaving]);
+
+  const handleChangeExercise = useCallback(() => {
+    if (isRunning || elapsedSeconds > 0) {
+      if (window.confirm('¿Deseas cambiar de ejercicio? Se perderá el progreso actual.')) {
+        setIsRunning(false);
+        setIsPaused(false);
+        setElapsedSeconds(0);
+        setShowExerciseSelector(true);
+        setSelectedExercise(null);
+        setSelectedBook(null);
+      }
+    } else {
+      setShowExerciseSelector(true);
+      setSelectedExercise(null);
+      setSelectedBook(null);
+    }
+  }, [isRunning, elapsedSeconds]);
+
+  return (
+    <Box sx={{ 
+      height: '100vh', 
+      display: 'flex', 
+      flexDirection: 'column',
+      overflow: 'hidden',
+    }}>
+      {/* Sin header - Máxima visualización */}
+
+      {/* Selector de ejercicio */}
+      {showExerciseSelector && (
+        <Box sx={{ 
+          flex: 1, 
+          display: 'flex', 
+          alignItems: 'center', 
+          justifyContent: 'center',
+          p: 3,
+        }}>
+          <Card sx={{ maxWidth: 600, width: '100%' }}>
+            <CardContent>
+              <Typography variant="h6" gutterBottom>
+                Selecciona un Ejercicio
+              </Typography>
+              <Autocomplete
+                fullWidth
+                options={exercises}
+                getOptionLabel={(option) =>
+                  `${option.name}${option.book ? ` - ${option.book.name}` : ''} (Páginas: ${option.pages})`
+                }
+                value={selectedExercise}
+                onChange={(_, newValue) => {
+                  setSelectedExercise(newValue);
+                  if (newValue) {
+                    setShowExerciseSelector(false);
+                  }
+                }}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    label="Buscar ejercicio"
+                    placeholder="Escribe para buscar..."
+                  />
+                )}
+              />
+            </CardContent>
+          </Card>
+        </Box>
+      )}
+
+      {/* Vista de práctica */}
+      {selectedExercise && !showExerciseSelector && (
+        <Box sx={{ 
+          flex: 1, 
+          display: 'flex', 
+          flexDirection: { xs: 'column', lg: 'row' },
+          overflow: 'hidden',
+          gap: 1,
+          p: 1,
+          minHeight: 0, // IMPORTANTE para que flex funcione
+        }}>
+          {/* Columna izquierda: Información, Temporizador, PDF */}
+          <Box sx={{ 
+            flex: 1, 
+            display: 'flex', 
+            flexDirection: 'column',
+            overflow: 'hidden',
+            gap: 1,
+            minWidth: 0,
+            minHeight: 0, // IMPORTANTE
+          }}>
+            {/* Información del ejercicio y Temporizador - Ultra compacta */}
+            <Paper sx={{ p: 1, flexShrink: 0 }} elevation={1}>
+              <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 1.5, mb: 1 }}>
+                <Box sx={{ minWidth: 0, flex: 1 }}>
+                  <Typography variant="body1" noWrap fontWeight={600}>
+                    {selectedExercise.name}
+                  </Typography>
+                  <Box sx={{ display: 'flex', gap: 0.5, flexWrap: 'wrap', mt: 0.5 }}>
+                    {selectedBook && (
+                      <Chip
+                        icon={<BookIcon sx={{ fontSize: 14 }} />}
+                        label={selectedBook.name}
+                        size="small"
+                        color="primary"
+                        variant="outlined"
+                        sx={{ height: 20, fontSize: '0.7rem' }}
+                      />
+                    )}
+                    <Chip
+                      label={`Pág: ${selectedExercise.pages}`}
+                      size="small"
+                      color="secondary"
+                      variant="outlined"
+                      sx={{ height: 20, fontSize: '0.7rem' }}
+                    />
+                    <Chip
+                      label={selectedExercise.difficulty}
+                      size="small"
+                      color="info"
+                      variant="outlined"
+                      sx={{ height: 20, fontSize: '0.7rem' }}
+                    />
+                  </Box>
+                </Box>
+                <Button
+                  variant="outlined"
+                  onClick={handleChangeExercise}
+                  size="small"
+                  sx={{ minWidth: 'auto', px: 1 }}
+                >
+                  Cambiar
+                </Button>
+              </Box>
+
+              {/* Temporizador integrado */}
+              <Box 
+                sx={{ 
+                  display: 'flex', 
+                  alignItems: 'center', 
+                  justifyContent: 'space-between', 
+                  gap: 1.5,
+                  pt: 1,
+                  borderTop: 1,
+                  borderColor: 'divider',
+                }}
+              >
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                  <Typography variant="caption" color="text.secondary" sx={{ fontSize: '0.7rem' }}>
+                    Tiempo:
+                  </Typography>
+                  <Typography
+                    variant="h6"
+                    component="div"
+                    sx={{
+                      fontFamily: 'monospace',
+                      fontWeight: 'bold',
+                      color: isRunning && !isPaused ? 'primary.main' : 'text.primary',
+                    }}
+                  >
+                    {formatTime(elapsedSeconds)}
+                  </Typography>
+                </Box>
+
+                <Box sx={{ display: 'flex', gap: 0.5 }}>
+                  {!isRunning ? (
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      startIcon={<PlayIcon />}
+                      onClick={startTimer}
+                      size="small"
+                      sx={{ minWidth: 'auto', px: 1.5 }}
+                    >
+                      Iniciar
+                    </Button>
+                  ) : (
+                    <>
+                      {isPaused ? (
+                        <Button
+                          variant="contained"
+                          color="primary"
+                          startIcon={<PlayIcon />}
+                          onClick={resumeTimer}
+                          size="small"
+                          sx={{ minWidth: 'auto', px: 1.5 }}
+                        >
+                          Reanudar
+                        </Button>
+                      ) : (
+                        <Button
+                          variant="contained"
+                          color="warning"
+                          startIcon={<PauseIcon />}
+                          onClick={pauseTimer}
+                          size="small"
+                          sx={{ minWidth: 'auto', px: 1.5 }}
+                        >
+                          Pausar
+                        </Button>
+                      )}
+                      <Button
+                        variant="contained"
+                        color="error"
+                        startIcon={<StopIcon />}
+                        onClick={stopTimer}
+                        size="small"
+                        sx={{ minWidth: 'auto', px: 1.5 }}
+                      >
+                        Finalizar
+                      </Button>
+                    </>
+                  )}
+                </Box>
+              </Box>
+            </Paper>
+
+            {/* Visualizador de PDF - Usa flex para ocupar espacio restante */}
+            {selectedBook && (
+              <Box sx={{ 
+                flex: 1,
+                minHeight: 0, // CRÍTICO para que flex funcione
+                overflow: 'hidden',
+              }}>
+                <PDFViewer 
+                  fileUrl={selectedBook.fileUrl} 
+                  pageRange={selectedExercise.pages}
+                />
+              </Box>
+            )}
+
+            {!selectedBook && (
+              <Alert severity="info" sx={{ m: 0 }}>
+                No se encontró el libro asociado a este ejercicio.
+              </Alert>
+            )}
+          </Box>
+
+          {/* Columna derecha: Metrónomo */}
+          <Box sx={{ 
+            width: { xs: '100%', lg: 340 },
+            flexShrink: 0,
+            overflow: 'auto',
+            minHeight: 0, // IMPORTANTE
+          }}>
+            <Metronome
+              initialTempo={currentTempo}
+              onTempoChange={setCurrentTempo}
+            />
+          </Box>
+        </Box>
+      )}
+
+      {/* Dialog de guardado */}
+      <Dialog
+        open={showSaveDialog}
+        onClose={handleCloseSaveDialog}
+        maxWidth="sm"
+        fullWidth
+      >
+        <DialogTitle>Guardar Sesión de Práctica</DialogTitle>
+        <DialogContent>
+          <Box sx={{ pt: 2 }}>
+            <Typography variant="body1" gutterBottom>
+              <strong>Ejercicio:</strong> {selectedExercise?.name}
+            </Typography>
+            <Typography variant="body1" gutterBottom>
+              <strong>Duración:</strong> {formatTime(elapsedSeconds)} ({Math.round(elapsedSeconds / 60)} minutos)
+            </Typography>
+
+            <TextField
+              fullWidth
+              multiline
+              rows={4}
+              label="Notas (opcional)"
+              value={notes}
+              onChange={(e) => setNotes(e.target.value)}
+              sx={{ mt: 2 }}
+              placeholder="Agrega notas sobre tu sesión de práctica..."
+            />
+          </Box>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCloseSaveDialog} disabled={isSaving}>
+            Cancelar
+          </Button>
+          <Button
+            onClick={saveSession}
+            variant="contained"
+            color="primary"
+            disabled={isSaving}
+          >
+            {isSaving ? 'Guardando...' : 'Guardar Sesión'}
+          </Button>
+        </DialogActions>
+      </Dialog>
+    </Box>
+  );
+};
+
+export default PracticeSession;

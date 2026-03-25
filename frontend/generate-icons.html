@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Generador de Iconos PWA</title>
+</head>
+<body>
+    <h1>Generador de Iconos PWA</h1>
+    <p>Abre la consola del navegador para descargar los iconos</p>
+    <div id="canvases"></div>
+    
+    <script>
+        const sizes = [72, 96, 128, 144, 152, 192, 384, 512];
+        const container = document.getElementById('canvases');
+        
+        sizes.forEach(size => {
+            const canvas = document.createElement('canvas');
+            canvas.width = size;
+            canvas.height = size;
+            const ctx = canvas.getContext('2d');
+            
+            // Fondo con gradiente azul-morado
+            const gradient = ctx.createLinearGradient(0, 0, size, size);
+            gradient.addColorStop(0, '#5E35B1'); // Deep purple
+            gradient.addColorStop(1, '#1E88E5'); // Blue
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, size, size);
+            
+            // Icono de nota musical (símbolo simple)
+            ctx.fillStyle = '#FFFFFF';
+            ctx.font = `bold ${size * 0.6}px Arial`;
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText('♪', size / 2, size / 2);
+            
+            // Agregar canvas al documento
+            container.appendChild(canvas);
+            
+            // Descargar automáticamente
+            canvas.toBlob(blob => {
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `icon-${size}x${size}.png`;
+                a.click();
+                URL.revokeObjectURL(url);
+            });
+        });
+        
+        console.log('Iconos generados. Revisa tus descargas.');
+        alert('Los iconos se están descargando. Muévelos a la carpeta frontend/public/icons/');
+    </script>
+</body>
+</html>
