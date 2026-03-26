@@ -14,6 +14,8 @@ import {
   Divider,
   alpha,
   useTheme,
+  Tabs,
+  Tab,
 } from '@mui/material';
 import {
   ExpandMore as ExpandMoreIcon,
@@ -24,7 +26,10 @@ import {
   Timeline,
   GraphicEq,
   Audiotrack,
+  MenuBook,
+  TrendingUp,
 } from '@mui/icons-material';
+import DrumStudyGuide from './DrumStudyGuide';
 
 interface Lesson {
   id: string;
@@ -37,9 +42,14 @@ interface Lesson {
 const DrumLessons: React.FC = () => {
   const theme = useTheme();
   const [expandedLesson, setExpandedLesson] = useState<string | false>(false);
+  const [tabValue, setTabValue] = useState(0);
 
   const handleLessonChange = (panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
     setExpandedLesson(isExpanded ? panel : false);
+  };
+
+  const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
+    setTabValue(newValue);
   };
 
   const getLevelColor = (level: string) => {
@@ -796,11 +806,46 @@ BD:  ♩   |   |   |   |
 
   return (
     <Box>
-      <Typography variant="h5" gutterBottom sx={{ mb: 3, fontWeight: 'bold', color: 'primary.main' }}>
-        Lecciones de Batería
-      </Typography>
-      
-      {drumLessons.map((lesson) => (
+      {/* Header */}
+      <Box sx={{ mb: 3 }}>
+        <Typography variant="h5" gutterBottom sx={{ fontWeight: 'bold', color: 'primary.main' }}>
+          Lecciones de Batería
+        </Typography>
+        <Typography variant="body2" color="text.secondary">
+          Aprende a leer partituras y desarrolla tu técnica con nuestra guía completa
+        </Typography>
+      </Box>
+
+      {/* Tabs */}
+      <Paper sx={{ mb: 3 }}>
+        <Tabs
+          value={tabValue}
+          onChange={handleTabChange}
+          variant="fullWidth"
+          sx={{
+            '& .MuiTab-root': {
+              fontWeight: 'bold',
+              fontSize: '1rem',
+            },
+          }}
+        >
+          <Tab
+            icon={<MenuBook />}
+            iconPosition="start"
+            label="Lectura de Pentagrama"
+          />
+          <Tab
+            icon={<TrendingUp />}
+            iconPosition="start"
+            label="Guía de Estudio"
+          />
+        </Tabs>
+      </Paper>
+
+      {/* Tab Content */}
+      {tabValue === 0 && (
+        <Box>
+          {drumLessons.map((lesson) => (
         <Accordion
           key={lesson.id}
           expanded={expandedLesson === lesson.id}
@@ -846,6 +891,15 @@ BD:  ♩   |   |   |   |
           </AccordionDetails>
         </Accordion>
       ))}
+        </Box>
+      )}
+
+      {/* Study Guide Tab */}
+      {tabValue === 1 && (
+        <Box>
+          <DrumStudyGuide />
+        </Box>
+      )}
     </Box>
   );
 };
