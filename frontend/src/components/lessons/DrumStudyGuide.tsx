@@ -41,123 +41,131 @@ const DrumStudyGuide: React.FC = () => {
   const studyPath = [
     {
       id: 1,
-      title: 'Stick Control - George Lawrence Stone',
-      subtitle: 'Método Fundamental de Control de Baquetas',
+      title: 'Rudimentos y Técnica de Manos',
+      subtitle: 'El Alfabeto del Baterista',
       icon: <MusicNote />,
       color: theme.palette.primary.main,
-      description: '⚠️ REGLA DE ORO: Practica cada ejercicio 20 veces sin parar antes de pasar al siguiente. Esta es la recomendación del autor para obtener resultados satisfactorios. Enfócate en la igualdad de sonido entre ambas manos y usa siempre metrónomo.',
-      exercises: [
+      description: 'Los rudimentos son el alfabeto del baterista. Dominar estos patrones fundamentales es esencial para desarrollar velocidad, control y musicalidad en la batería.',
+      books: [
         {
-          name: 'Single Beat Combinations',
-          pattern: 'Páginas 5, 6 y 7',
-          focus: 'Control básico y alternancia de manos',
-          description: 'Patrones fundamentales de golpes simples. Base de toda técnica.',
-          bpm: '60-120',
-        },
-        {
-          name: 'Triplets',
-          pattern: 'Páginas 8 y 9',
-          focus: 'Subdivisión en tresillos',
-          description: 'Desarrollo de fluidez en grupos de tres notas.',
-          bpm: '60-100',
-        },
-        {
-          name: 'Short Roll Combinations (Single Beat Rolls)',
-          pattern: 'Página 10',
-          focus: 'Redobles cortos con golpes simples',
-          description: 'Introducción a redobles de 5, 7 y 9 golpes.',
-          bpm: '50-100',
-        },
-        {
-          name: 'Short Roll Combinations (Double Beat Rolls)',
-          pattern: 'Página 11',
-          focus: 'Redobles con golpes dobles',
-          description: 'Desarrollo de rebote controlado en redobles.',
-          bpm: '50-110',
-        },
-        {
-          name: 'Short Roll Combinations',
-          pattern: 'Página 12',
-          focus: 'Combinaciones mixtas de redobles',
-          description: 'Integración de diferentes tipos de redobles.',
-          bpm: '50-100',
-        },
-        {
-          name: 'Review of Short Roll Combinations',
-          pattern: 'Página 13',
-          focus: 'Repaso y consolidación',
-          description: 'Revisión de patrones de redobles aprendidos.',
-          bpm: '60-110',
-        },
-        {
-          name: 'Short Rolls and Triplets',
-          pattern: 'Páginas 14 y 15',
-          focus: 'Redobles en contexto de tresillos',
-          description: 'Combinación de redobles con subdivisión ternaria.',
-          bpm: '50-100',
-        },
-        {
-          name: 'Flam Beats',
-          pattern: 'Páginas 16, 17, 18, 19, 20, 21, 22 y 23',
-          focus: 'Técnica de flam y aplicación rítmica',
-          description: 'Desarrollo de flams limpios y controlados. Sección extensa y fundamental.',
-          bpm: '50-90',
-        },
-        {
-          name: 'Short Rolls in 6/8',
-          pattern: 'Páginas 24, 25, 26 y 27',
-          focus: 'Redobles en compás compuesto',
-          description: 'Adaptación de redobles a métrica de 6/8.',
-          bpm: '60-100',
-        },
-        {
-          name: 'Review of Short Rolls in 6/8',
-          pattern: 'Página 28',
-          focus: 'Consolidación en 6/8',
-          description: 'Repaso de patrones en compás compuesto.',
-          bpm: '60-100',
-        },
-        {
-          name: 'Review of Short Roll in 6/8',
-          pattern: 'Página 29',
-          focus: 'Repaso adicional en 6/8',
-          description: 'Refuerzo de conceptos de redobles en compás compuesto.',
-          bpm: '60-100',
-        },
-        {
-          name: 'Combinations in 3/8',
-          pattern: 'Páginas 30, 31 y 32',
-          focus: 'Patrones en compás de 3/8',
-          description: 'Ejercicios en métrica de tres octavos.',
-          bpm: '70-120',
-        },
-        {
-          name: 'Combinations in 2/4',
-          pattern: 'Página 33',
-          focus: 'Patrones en compás de 2/4',
-          description: 'Desarrollo rítmico en dos por cuatro.',
-          bpm: '70-130',
-        },
-        {
-          name: 'Flam Triplets and Dotted Notes',
-          pattern: 'Páginas 34, 35, 36 y 37',
-          focus: 'Flams en tresillos y notas con puntillo',
-          description: 'Técnica avanzada de flams con subdivisiones complejas.',
-          bpm: '50-90',
-        },
-        {
-          name: 'Short Roll Progressions',
-          pattern: 'Páginas 38, 39, 40, 41, 42 y 43',
-          focus: 'Progresiones de redobles',
-          description: 'Secuencias progresivas de redobles cortos. Sección extensa.',
-          bpm: '50-100',
-        },
-        {
-          name: 'Short Roll Progressions and Triplets',
-          pattern: 'Páginas 44, 45 y 46',
-          focus: 'Progresiones con tresillos',
-          description: 'Combinación final de redobles y subdivisión ternaria.',
-          bpm: '50-100',
+          id: 'stick-control',
+          title: 'Stick Control - George Lawrence Stone',
+          subtitle: 'Método Fundamental de Control de Baquetas',
+          description: '⚠️ REGLA DE ORO: Practica cada ejercicio 20 veces sin parar antes de pasar al siguiente. Esta es la recomendación del autor para obtener resultados satisfactorios. Enfócate en la igualdad de sonido entre ambas manos y usa siempre metrónomo.',
+          exercises: [
+            {
+              name: 'Single Beat Combinations',
+              pattern: 'Páginas 5, 6 y 7',
+              focus: 'Control básico y alternancia de manos',
+              description: 'Patrones fundamentales de golpes simples. Base de toda técnica.',
+              bpm: '60-120',
+            },
+            {
+              name: 'Triplets',
+              pattern: 'Páginas 8 y 9',
+              focus: 'Subdivisión en tresillos',
+              description: 'Desarrollo de fluidez en grupos de tres notas.',
+              bpm: '60-100',
+            },
+            {
+              name: 'Short Roll Combinations (Single Beat Rolls)',
+              pattern: 'Página 10',
+              focus: 'Redobles cortos con golpes simples',
+              description: 'Introducción a redobles de 5, 7 y 9 golpes.',
+              bpm: '50-100',
+            },
+            {
+              name: 'Short Roll Combinations (Double Beat Rolls)',
+              pattern: 'Página 11',
+              focus: 'Redobles con golpes dobles',
+              description: 'Desarrollo de rebote controlado en redobles.',
+              bpm: '50-110',
+            },
+            {
+              name: 'Short Roll Combinations',
+              pattern: 'Página 12',
+              focus: 'Combinaciones mixtas de redobles',
+              description: 'Integración de diferentes tipos de redobles.',
+              bpm: '50-100',
+            },
+            {
+              name: 'Review of Short Roll Combinations',
+              pattern: 'Página 13',
+              focus: 'Repaso y consolidación',
+              description: 'Revisión de patrones de redobles aprendidos.',
+              bpm: '60-110',
+            },
+            {
+              name: 'Short Rolls and Triplets',
+              pattern: 'Páginas 14 y 15',
+              focus: 'Redobles en contexto de tresillos',
+              description: 'Combinación de redobles con subdivisión ternaria.',
+              bpm: '50-100',
+            },
+            {
+              name: 'Flam Beats',
+              pattern: 'Páginas 16, 17, 18, 19, 20, 21, 22 y 23',
+              focus: 'Técnica de flam y aplicación rítmica',
+              description: 'Desarrollo de flams limpios y controlados. Sección extensa y fundamental.',
+              bpm: '50-90',
+            },
+            {
+              name: 'Short Rolls in 6/8',
+              pattern: 'Páginas 24, 25, 26 y 27',
+              focus: 'Redobles en compás compuesto',
+              description: 'Adaptación de redobles a métrica de 6/8.',
+              bpm: '60-100',
+            },
+            {
+              name: 'Review of Short Rolls in 6/8',
+              pattern: 'Página 28',
+              focus: 'Consolidación en 6/8',
+              description: 'Repaso de patrones en compás compuesto.',
+              bpm: '60-100',
+            },
+            {
+              name: 'Review of Short Roll in 6/8',
+              pattern: 'Página 29',
+              focus: 'Repaso adicional en 6/8',
+              description: 'Refuerzo de conceptos de redobles en compás compuesto.',
+              bpm: '60-100',
+            },
+            {
+              name: 'Combinations in 3/8',
+              pattern: 'Páginas 30, 31 y 32',
+              focus: 'Patrones en compás de 3/8',
+              description: 'Ejercicios en métrica de tres octavos.',
+              bpm: '70-120',
+            },
+            {
+              name: 'Combinations in 2/4',
+              pattern: 'Página 33',
+              focus: 'Patrones en compás de 2/4',
+              description: 'Desarrollo rítmico en dos por cuatro.',
+              bpm: '70-130',
+            },
+            {
+              name: 'Flam Triplets and Dotted Notes',
+              pattern: 'Páginas 34, 35, 36 y 37',
+              focus: 'Flams en tresillos y notas con puntillo',
+              description: 'Técnica avanzada de flams con subdivisiones complejas.',
+              bpm: '50-90',
+            },
+            {
+              name: 'Short Roll Progressions',
+              pattern: 'Páginas 38, 39, 40, 41, 42 y 43',
+              focus: 'Progresiones de redobles',
+              description: 'Secuencias progresivas de redobles cortos. Sección extensa.',
+              bpm: '50-100',
+            },
+            {
+              name: 'Short Roll Progressions and Triplets',
+              pattern: 'Páginas 44, 45 y 46',
+              focus: 'Progresiones con tresillos',
+              description: 'Combinación final de redobles y subdivisión ternaria.',
+              bpm: '50-100',
+            },
+          ],
         },
       ],
     },
@@ -374,48 +382,6 @@ const DrumStudyGuide: React.FC = () => {
                 background: `linear-gradient(to bottom, ${alpha(section.color, 0.02)}, white)`,
               }}
             >
-                {/* Golden Rule - Solo para Stick Control */}
-                {section.id === 1 && (
-                  <Paper
-                    elevation={3}
-                    sx={{
-                      p: 3,
-                      mb: 3,
-                      background: `linear-gradient(135deg, ${alpha(theme.palette.warning.main, 0.15)} 0%, ${alpha(theme.palette.error.main, 0.15)} 100%)`,
-                      border: `3px solid ${theme.palette.warning.main}`,
-                      borderRadius: 2,
-                    }}
-                  >
-                    <Stack direction="row" spacing={2} alignItems="center">
-                      <Box
-                        sx={{
-                          width: 50,
-                          height: 50,
-                          borderRadius: '50%',
-                          bgcolor: theme.palette.warning.main,
-                          display: 'flex',
-                          alignItems: 'center',
-                          justifyContent: 'center',
-                          fontSize: '2rem',
-                        }}
-                      >
-                        ⚠️
-                      </Box>
-                      <Box flex={1}>
-                        <Typography variant="h6" fontWeight="bold" color="warning.main" gutterBottom>
-                          REGLA DE ORO DEL AUTOR
-                        </Typography>
-                        <Typography variant="body1" fontWeight="600">
-                          Practica cada ejercicio 20 veces sin parar antes de pasar al siguiente.
-                        </Typography>
-                        <Typography variant="body2" color="text.secondary" mt={1}>
-                          Esta es la recomendación de George Lawrence Stone para obtener resultados satisfactorios.
-                        </Typography>
-                      </Box>
-                    </Stack>
-                  </Paper>
-                )}
-
                 {/* Description */}
                 <Paper
                   elevation={0}
@@ -431,10 +397,174 @@ const DrumStudyGuide: React.FC = () => {
                   </Typography>
                 </Paper>
 
-                {/* Exercises */}
-                <Grid container spacing={2}>
-                  {section.exercises.map((exercise, idx) => (
-                    <Grid item xs={12} md={6} key={idx}>
+                {/* Books - Nested Accordions */}
+                {section.books ? (
+                  <Stack spacing={2}>
+                    {section.books.map((book: any) => (
+                      <Accordion
+                        key={book.id}
+                        sx={{
+                          border: `2px solid ${alpha(section.color, 0.2)}`,
+                          borderRadius: '8px !important',
+                          '&:before': { display: 'none' },
+                          boxShadow: 2,
+                        }}
+                      >
+                        <AccordionSummary
+                          expandIcon={<ExpandMoreIcon sx={{ color: section.color }} />}
+                          sx={{
+                            background: `linear-gradient(90deg, ${alpha(section.color, 0.08)} 0%, ${alpha(section.color, 0.03)} 100%)`,
+                            '&:hover': {
+                              background: `linear-gradient(90deg, ${alpha(section.color, 0.12)} 0%, ${alpha(section.color, 0.05)} 100%)`,
+                            },
+                          }}
+                        >
+                          <Stack spacing={0.5} width="100%">
+                            <Typography variant="h6" fontWeight="bold" color={section.color}>
+                              📚 {book.title}
+                            </Typography>
+                            <Typography variant="body2" color="text.secondary">
+                              {book.subtitle}
+                            </Typography>
+                          </Stack>
+                        </AccordionSummary>
+
+                        <AccordionDetails sx={{ p: 3, bgcolor: alpha(section.color, 0.02) }}>
+                          {/* Golden Rule */}
+                          <Paper
+                            elevation={3}
+                            sx={{
+                              p: 3,
+                              mb: 3,
+                              background: `linear-gradient(135deg, ${alpha(theme.palette.warning.main, 0.15)} 0%, ${alpha(theme.palette.error.main, 0.15)} 100%)`,
+                              border: `3px solid ${theme.palette.warning.main}`,
+                              borderRadius: 2,
+                            }}
+                          >
+                            <Stack direction="row" spacing={2} alignItems="center">
+                              <Box
+                                sx={{
+                                  width: 50,
+                                  height: 50,
+                                  borderRadius: '50%',
+                                  bgcolor: theme.palette.warning.main,
+                                  display: 'flex',
+                                  alignItems: 'center',
+                                  justifyContent: 'center',
+                                  fontSize: '2rem',
+                                }}
+                              >
+                                ⚠️
+                              </Box>
+                              <Box flex={1}>
+                                <Typography variant="h6" fontWeight="bold" color="warning.main" gutterBottom>
+                                  REGLA DE ORO DEL AUTOR
+                                </Typography>
+                                <Typography variant="body1" fontWeight="600">
+                                  Practica cada ejercicio 20 veces sin parar antes de pasar al siguiente.
+                                </Typography>
+                                <Typography variant="body2" color="text.secondary" mt={1}>
+                                  Esta es la recomendación de George Lawrence Stone para obtener resultados satisfactorios.
+                                </Typography>
+                              </Box>
+                            </Stack>
+                          </Paper>
+
+                          {/* Book Description */}
+                          <Paper
+                            elevation={0}
+                            sx={{
+                              p: 2,
+                              mb: 3,
+                              bgcolor: alpha(section.color, 0.08),
+                              borderLeft: `4px solid ${section.color}`,
+                            }}
+                          >
+                            <Typography variant="body1" fontWeight="500">
+                              {book.description}
+                            </Typography>
+                          </Paper>
+
+                          {/* Exercises */}
+                          <Grid container spacing={2}>
+                            {book.exercises.map((exercise: any, idx: number) => (
+                              <Grid item xs={12} md={6} key={idx}>
+                                <Card
+                                  sx={{
+                                    p: 2.5,
+                                    height: '100%',
+                                    bgcolor: 'white',
+                                    border: `1px solid ${alpha(section.color, 0.2)}`,
+                                    transition: 'all 0.3s',
+                                    '&:hover': {
+                                      boxShadow: 4,
+                                      transform: 'translateY(-4px)',
+                                      borderColor: section.color,
+                                    },
+                                  }}
+                                >
+                                  <Stack spacing={1.5}>
+                                    <Box display="flex" alignItems="center" gap={1}>
+                                      <CheckCircle sx={{ color: section.color, fontSize: 20 }} />
+                                      <Typography variant="h6" fontWeight="bold">
+                                        {exercise.name}
+                                      </Typography>
+                                    </Box>
+
+                                    <Box
+                                      sx={{
+                                        fontFamily: 'monospace',
+                                        fontSize: '1.1rem',
+                                        bgcolor: '#1a1a1a',
+                                        color: section.color,
+                                        p: 1.5,
+                                        borderRadius: 1,
+                                        textAlign: 'center',
+                                        fontWeight: 'bold',
+                                      }}
+                                    >
+                                      {exercise.pattern}
+                                    </Box>
+
+                                    <Box
+                                      sx={{
+                                        p: 1.5,
+                                        bgcolor: alpha(section.color, 0.1),
+                                        borderRadius: 1,
+                                      }}
+                                    >
+                                      <Typography variant="caption" fontWeight="bold" color={section.color}>
+                                        ENFOQUE:
+                                      </Typography>
+                                      <Typography variant="body2" fontWeight="500">
+                                        {exercise.focus}
+                                      </Typography>
+                                    </Box>
+
+                                    <Typography variant="body2" color="text.secondary">
+                                      {exercise.description}
+                                    </Typography>
+
+                                    <Box display="flex" alignItems="center" gap={1}>
+                                      <Speed sx={{ fontSize: 18, color: section.color }} />
+                                      <Typography variant="caption" fontWeight="bold">
+                                        BPM: {exercise.bpm}
+                                      </Typography>
+                                    </Box>
+                                  </Stack>
+                                </Card>
+                              </Grid>
+                            ))}
+                          </Grid>
+                        </AccordionDetails>
+                      </Accordion>
+                    ))}
+                  </Stack>
+                ) : (
+                  /* Exercises - For sections without books */
+                  <Grid container spacing={2}>
+                    {section.exercises?.map((exercise: any, idx: number) => (
+                      <Grid item xs={12} md={6} key={idx}>
                       <Card
                         sx={{
                           p: 2.5,
@@ -507,6 +637,7 @@ const DrumStudyGuide: React.FC = () => {
                     </Grid>
                   ))}
                 </Grid>
+                )}
 
                 {/* Tips section */}
                 <Paper
