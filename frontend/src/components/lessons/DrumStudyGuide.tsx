@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Box,
   Typography,
@@ -14,10 +14,9 @@ import {
   ListItem,
   ListItemIcon,
   ListItemText,
-  Stepper,
-  Step,
-  StepLabel,
-  StepContent,
+  Accordion,
+  AccordionSummary,
+  AccordionDetails,
 } from '@mui/material';
 import {
   CheckCircle,
@@ -28,46 +27,129 @@ import {
   DirectionsRun,
   MusicNote,
   Timer,
+  ExpandMore as ExpandMoreIcon,
 } from '@mui/icons-material';
 
 const DrumStudyGuide: React.FC = () => {
   const theme = useTheme();
+  const [expanded, setExpanded] = useState<number | false>(false);
+
+  const handleAccordionChange = (panel: number) => (event: React.SyntheticEvent, isExpanded: boolean) => {
+    setExpanded(isExpanded ? panel : false);
+  };
 
   const studyPath = [
     {
       id: 1,
-      title: 'Rudimentos y Técnica de Manos',
-      subtitle: 'El Alfabeto del Baterista',
+      title: 'Stick Control - George Lawrence Stone',
+      subtitle: 'Método Fundamental de Control de Baquetas',
       icon: <MusicNote />,
       color: theme.palette.primary.main,
-      description: 'Los rudimentos son el alfabeto del baterista. Debes practicarlos en el redoblante o en un pad de práctica buscando consistencia en el sonido.',
+      description: 'Stick Control es el método clásico para desarrollar control, velocidad y precisión. Practica cada sección lentamente con metrónomo, enfocándote en la igualdad de sonido entre ambas manos.',
       exercises: [
         {
-          name: 'Single Stroke Roll',
-          pattern: 'D I D I',
-          focus: 'Igualdad de volumen entre manos',
-          description: 'Golpes simples alternados. La base de toda técnica de batería.',
+          name: 'Single Beat Combinations',
+          pattern: 'Páginas 5-11',
+          focus: 'Control básico y alternancia de manos',
+          description: 'Patrones fundamentales de golpes simples. Base de toda técnica.',
           bpm: '60-120',
         },
         {
-          name: 'Double Stroke Roll',
-          pattern: 'DD II DD II',
-          focus: 'Desarrollar rebote y velocidad',
-          description: 'Fundamental para redobles rápidos y fills fluidos.',
-          bpm: '60-140',
+          name: 'Triplets',
+          pattern: 'Páginas 12-23',
+          focus: 'Subdivisión en tresillos',
+          description: 'Desarrollo de fluidez en grupos de tres notas.',
+          bpm: '60-100',
         },
         {
-          name: 'Paradiddles',
-          pattern: 'D I D D - I D I I',
-          focus: 'Mover el acento y facilitar desplazamientos',
-          description: 'Ayudan a navegar por los toms con fluidez y control.',
-          bpm: '60-120',
+          name: 'Short Roll Combinations (Single Beat)',
+          pattern: 'Páginas 24-29',
+          focus: 'Redobles cortos con golpes simples',
+          description: 'Introducción a redobles de 5, 7 y 9 golpes.',
+          bpm: '50-100',
         },
         {
-          name: 'Flam y Drags',
-          pattern: 'Grace notes + nota principal',
-          focus: 'Textura y control de dinámica',
-          description: 'Ejercicios de notas de adorno para dar color y expresión.',
+          name: 'Short Roll Combinations (Double Beat)',
+          pattern: 'Páginas 30-35',
+          focus: 'Redobles con golpes dobles',
+          description: 'Desarrollo de rebote controlado en redobles.',
+          bpm: '50-110',
+        },
+        {
+          name: 'Short Roll Combinations',
+          pattern: 'Páginas 36-41',
+          focus: 'Combinaciones mixtas de redobles',
+          description: 'Integración de diferentes tipos de redobles.',
+          bpm: '50-100',
+        },
+        {
+          name: 'Review of Short Roll Combinations',
+          pattern: 'Páginas 42-45',
+          focus: 'Repaso y consolidación',
+          description: 'Revisión de patrones de redobles aprendidos.',
+          bpm: '60-110',
+        },
+        {
+          name: 'Short Rolls and Triplets',
+          pattern: 'Páginas 46-51',
+          focus: 'Redobles en contexto de tresillos',
+          description: 'Combinación de redobles con subdivisión ternaria.',
+          bpm: '50-100',
+        },
+        {
+          name: 'Flam Beats',
+          pattern: 'Páginas 52-57',
+          focus: 'Técnica de flam y aplicación rítmica',
+          description: 'Desarrollo de flams limpios y controlados.',
+          bpm: '50-90',
+        },
+        {
+          name: 'Short Rolls in 6/8',
+          pattern: 'Páginas 58-61',
+          focus: 'Redobles en compás compuesto',
+          description: 'Adaptación de redobles a métrica de 6/8.',
+          bpm: '60-100',
+        },
+        {
+          name: 'Review of Short Rolls in 6/8',
+          pattern: 'Páginas 62-65',
+          focus: 'Consolidación en 6/8',
+          description: 'Repaso de patrones en compás compuesto.',
+          bpm: '60-100',
+        },
+        {
+          name: 'Combinations in 3/8',
+          pattern: 'Páginas 66-69',
+          focus: 'Patrones en compás de 3/8',
+          description: 'Ejercicios en métrica de tres octavos.',
+          bpm: '70-120',
+        },
+        {
+          name: 'Combinations in 2/4',
+          pattern: 'Páginas 70-73',
+          focus: 'Patrones en compás de 2/4',
+          description: 'Desarrollo rítmico en dos por cuatro.',
+          bpm: '70-130',
+        },
+        {
+          name: 'Flam Triplets and Dotted Notes',
+          pattern: 'Páginas 74-77',
+          focus: 'Flams en tresillos y notas con puntillo',
+          description: 'Técnica avanzada de flams con subdivisiones complejas.',
+          bpm: '50-90',
+        },
+        {
+          name: 'Short Roll Progressions',
+          pattern: 'Páginas 78-81',
+          focus: 'Progresiones de redobles',
+          description: 'Secuencias progresivas de redobles cortos.',
+          bpm: '50-100',
+        },
+        {
+          name: 'Short Roll Progressions and Triplets',
+          pattern: 'Páginas 82-85',
+          focus: 'Progresiones con tresillos',
+          description: 'Combinación final de redobles y subdivisión ternaria.',
           bpm: '50-100',
         },
       ],
@@ -207,16 +289,41 @@ const DrumStudyGuide: React.FC = () => {
         </Stack>
       </Card>
 
-      {/* Study Path */}
-      <Stepper orientation="vertical" sx={{ mb: 4 }}>
+      {/* Study Path - Accordions */}
+      <Stack spacing={2} sx={{ mb: 4 }}>
         {studyPath.map((section, index) => (
-          <Step key={section.id} active={true} expanded={true}>
-            <StepLabel
-              StepIconComponent={() => (
+          <Accordion
+            key={section.id}
+            expanded={expanded === section.id}
+            onChange={handleAccordionChange(section.id)}
+            sx={{
+              border: `2px solid ${alpha(section.color, 0.3)}`,
+              borderRadius: '12px !important',
+              overflow: 'hidden',
+              '&:before': { display: 'none' },
+              boxShadow: expanded === section.id ? 4 : 2,
+              transition: 'all 0.3s',
+            }}
+          >
+            <AccordionSummary
+              expandIcon={<ExpandMoreIcon sx={{ color: section.color, fontSize: 32 }} />}
+              sx={{
+                background: `linear-gradient(135deg, ${alpha(section.color, 0.1)} 0%, ${alpha(section.color, 0.05)} 100%)`,
+                minHeight: 80,
+                '&:hover': {
+                  background: `linear-gradient(135deg, ${alpha(section.color, 0.15)} 0%, ${alpha(section.color, 0.08)} 100%)`,
+                },
+                '& .MuiAccordionSummary-content': {
+                  my: 2,
+                },
+              }}
+            >
+              <Stack direction="row" spacing={3} alignItems="center" width="100%">
+                {/* Icon Circle */}
                 <Box
                   sx={{
-                    width: 50,
-                    height: 50,
+                    width: 60,
+                    height: 60,
                     borderRadius: '50%',
                     bgcolor: alpha(section.color, 0.15),
                     border: `3px solid ${section.color}`,
@@ -224,30 +331,42 @@ const DrumStudyGuide: React.FC = () => {
                     alignItems: 'center',
                     justifyContent: 'center',
                     color: section.color,
+                    flexShrink: 0,
                   }}
                 >
                   {section.icon}
                 </Box>
-              )}
+
+                {/* Title and Subtitle */}
+                <Box flex={1}>
+                  <Typography variant="h5" fontWeight="bold" color={section.color} gutterBottom>
+                    {section.title}
+                  </Typography>
+                  <Typography variant="subtitle1" color="text.secondary">
+                    {section.subtitle}
+                  </Typography>
+                </Box>
+
+                {/* Step Number */}
+                <Chip
+                  label={`Paso ${section.id}`}
+                  sx={{
+                    bgcolor: section.color,
+                    color: 'white',
+                    fontWeight: 'bold',
+                    fontSize: '1rem',
+                    height: 36,
+                  }}
+                />
+              </Stack>
+            </AccordionSummary>
+
+            <AccordionDetails
+              sx={{
+                p: 4,
+                background: `linear-gradient(to bottom, ${alpha(section.color, 0.02)}, white)`,
+              }}
             >
-              <Box>
-                <Typography variant="h5" fontWeight="bold" color={section.color}>
-                  {section.title}
-                </Typography>
-                <Typography variant="subtitle1" color="text.secondary">
-                  {section.subtitle}
-                </Typography>
-              </Box>
-            </StepLabel>
-            <StepContent>
-              <Card
-                sx={{
-                  p: 3,
-                  mb: 3,
-                  background: `linear-gradient(to bottom, ${alpha(section.color, 0.05)}, white)`,
-                  border: `1px solid ${alpha(section.color, 0.2)}`,
-                }}
-              >
                 {/* Description */}
                 <Paper
                   elevation={0}
@@ -392,11 +511,10 @@ const DrumStudyGuide: React.FC = () => {
                     </ListItem>
                   </List>
                 </Paper>
-              </Card>
-            </StepContent>
-          </Step>
+            </AccordionDetails>
+          </Accordion>
         ))}
-      </Stepper>
+      </Stack>
 
       {/* Practice Schedule Suggestion */}
       <Card
