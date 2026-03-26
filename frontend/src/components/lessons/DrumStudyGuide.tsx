@@ -45,109 +45,116 @@ const DrumStudyGuide: React.FC = () => {
       subtitle: 'Método Fundamental de Control de Baquetas',
       icon: <MusicNote />,
       color: theme.palette.primary.main,
-      description: 'Stick Control es el método clásico para desarrollar control, velocidad y precisión. Practica cada sección lentamente con metrónomo, enfocándote en la igualdad de sonido entre ambas manos.',
+      description: '⚠️ REGLA DE ORO: Practica cada ejercicio 20 veces sin parar antes de pasar al siguiente. Esta es la recomendación del autor para obtener resultados satisfactorios. Enfócate en la igualdad de sonido entre ambas manos y usa siempre metrónomo.',
       exercises: [
         {
           name: 'Single Beat Combinations',
-          pattern: 'Páginas 5-11',
+          pattern: 'Páginas 5, 6 y 7',
           focus: 'Control básico y alternancia de manos',
           description: 'Patrones fundamentales de golpes simples. Base de toda técnica.',
           bpm: '60-120',
         },
         {
           name: 'Triplets',
-          pattern: 'Páginas 12-23',
+          pattern: 'Páginas 8 y 9',
           focus: 'Subdivisión en tresillos',
           description: 'Desarrollo de fluidez en grupos de tres notas.',
           bpm: '60-100',
         },
         {
-          name: 'Short Roll Combinations (Single Beat)',
-          pattern: 'Páginas 24-29',
+          name: 'Short Roll Combinations (Single Beat Rolls)',
+          pattern: 'Página 10',
           focus: 'Redobles cortos con golpes simples',
           description: 'Introducción a redobles de 5, 7 y 9 golpes.',
           bpm: '50-100',
         },
         {
-          name: 'Short Roll Combinations (Double Beat)',
-          pattern: 'Páginas 30-35',
+          name: 'Short Roll Combinations (Double Beat Rolls)',
+          pattern: 'Página 11',
           focus: 'Redobles con golpes dobles',
           description: 'Desarrollo de rebote controlado en redobles.',
           bpm: '50-110',
         },
         {
           name: 'Short Roll Combinations',
-          pattern: 'Páginas 36-41',
+          pattern: 'Página 12',
           focus: 'Combinaciones mixtas de redobles',
           description: 'Integración de diferentes tipos de redobles.',
           bpm: '50-100',
         },
         {
           name: 'Review of Short Roll Combinations',
-          pattern: 'Páginas 42-45',
+          pattern: 'Página 13',
           focus: 'Repaso y consolidación',
           description: 'Revisión de patrones de redobles aprendidos.',
           bpm: '60-110',
         },
         {
           name: 'Short Rolls and Triplets',
-          pattern: 'Páginas 46-51',
+          pattern: 'Páginas 14 y 15',
           focus: 'Redobles en contexto de tresillos',
           description: 'Combinación de redobles con subdivisión ternaria.',
           bpm: '50-100',
         },
         {
           name: 'Flam Beats',
-          pattern: 'Páginas 52-57',
+          pattern: 'Páginas 16, 17, 18, 19, 20, 21, 22 y 23',
           focus: 'Técnica de flam y aplicación rítmica',
-          description: 'Desarrollo de flams limpios y controlados.',
+          description: 'Desarrollo de flams limpios y controlados. Sección extensa y fundamental.',
           bpm: '50-90',
         },
         {
           name: 'Short Rolls in 6/8',
-          pattern: 'Páginas 58-61',
+          pattern: 'Páginas 24, 25, 26 y 27',
           focus: 'Redobles en compás compuesto',
           description: 'Adaptación de redobles a métrica de 6/8.',
           bpm: '60-100',
         },
         {
           name: 'Review of Short Rolls in 6/8',
-          pattern: 'Páginas 62-65',
+          pattern: 'Página 28',
           focus: 'Consolidación en 6/8',
           description: 'Repaso de patrones en compás compuesto.',
           bpm: '60-100',
         },
         {
+          name: 'Review of Short Roll in 6/8',
+          pattern: 'Página 29',
+          focus: 'Repaso adicional en 6/8',
+          description: 'Refuerzo de conceptos de redobles en compás compuesto.',
+          bpm: '60-100',
+        },
+        {
           name: 'Combinations in 3/8',
-          pattern: 'Páginas 66-69',
+          pattern: 'Páginas 30, 31 y 32',
           focus: 'Patrones en compás de 3/8',
           description: 'Ejercicios en métrica de tres octavos.',
           bpm: '70-120',
         },
         {
           name: 'Combinations in 2/4',
-          pattern: 'Páginas 70-73',
+          pattern: 'Página 33',
           focus: 'Patrones en compás de 2/4',
           description: 'Desarrollo rítmico en dos por cuatro.',
           bpm: '70-130',
         },
         {
           name: 'Flam Triplets and Dotted Notes',
-          pattern: 'Páginas 74-77',
+          pattern: 'Páginas 34, 35, 36 y 37',
           focus: 'Flams en tresillos y notas con puntillo',
           description: 'Técnica avanzada de flams con subdivisiones complejas.',
           bpm: '50-90',
         },
         {
           name: 'Short Roll Progressions',
-          pattern: 'Páginas 78-81',
+          pattern: 'Páginas 38, 39, 40, 41, 42 y 43',
           focus: 'Progresiones de redobles',
-          description: 'Secuencias progresivas de redobles cortos.',
+          description: 'Secuencias progresivas de redobles cortos. Sección extensa.',
           bpm: '50-100',
         },
         {
           name: 'Short Roll Progressions and Triplets',
-          pattern: 'Páginas 82-85',
+          pattern: 'Páginas 44, 45 y 46',
           focus: 'Progresiones con tresillos',
           description: 'Combinación final de redobles y subdivisión ternaria.',
           bpm: '50-100',
@@ -367,6 +374,48 @@ const DrumStudyGuide: React.FC = () => {
                 background: `linear-gradient(to bottom, ${alpha(section.color, 0.02)}, white)`,
               }}
             >
+                {/* Golden Rule - Solo para Stick Control */}
+                {section.id === 1 && (
+                  <Paper
+                    elevation={3}
+                    sx={{
+                      p: 3,
+                      mb: 3,
+                      background: `linear-gradient(135deg, ${alpha(theme.palette.warning.main, 0.15)} 0%, ${alpha(theme.palette.error.main, 0.15)} 100%)`,
+                      border: `3px solid ${theme.palette.warning.main}`,
+                      borderRadius: 2,
+                    }}
+                  >
+                    <Stack direction="row" spacing={2} alignItems="center">
+                      <Box
+                        sx={{
+                          width: 50,
+                          height: 50,
+                          borderRadius: '50%',
+                          bgcolor: theme.palette.warning.main,
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          fontSize: '2rem',
+                        }}
+                      >
+                        ⚠️
+                      </Box>
+                      <Box flex={1}>
+                        <Typography variant="h6" fontWeight="bold" color="warning.main" gutterBottom>
+                          REGLA DE ORO DEL AUTOR
+                        </Typography>
+                        <Typography variant="body1" fontWeight="600">
+                          Practica cada ejercicio 20 veces sin parar antes de pasar al siguiente.
+                        </Typography>
+                        <Typography variant="body2" color="text.secondary" mt={1}>
+                          Esta es la recomendación de George Lawrence Stone para obtener resultados satisfactorios.
+                        </Typography>
+                      </Box>
+                    </Stack>
+                  </Paper>
+                )}
+
                 {/* Description */}
                 <Paper
                   elevation={0}
