@@ -167,6 +167,92 @@ const DrumStudyGuide: React.FC = () => {
             },
           ],
         },
+        {
+          id: 'rudimental-reference',
+          title: 'The Drummer\'s Rudimental Reference Book - John Wooton',
+          subtitle: 'Sistema de Progresión por Tiers (Niveles)',
+          description: '📊 SISTEMA DE TIERS: Este método organiza los rudimentos en 4 niveles de dificultad. NO avances al siguiente Tier sin dominar completamente el anterior. Los rudimentos "padre" del Tier 1 son la base de todo.',
+          tiers: [
+            {
+              tier: 'Fundamentos',
+              level: 'Preparación',
+              color: '#9C27B0',
+              sections: [
+                { name: 'Grip and Stroke', pages: 'Pág. 4', description: 'Agarre y técnica de golpe' },
+                { name: 'The Five Strokes', pages: 'Pág. 6', description: 'Los 5 tipos de golpe fundamentales' },
+                { name: 'One Handed Exercises', pages: 'Pág. 8', description: 'Ejercicios a una mano' },
+                { name: 'Hemiolas (Speed Changes)', pages: 'Pág. 13', description: 'Cambios de velocidad' },
+                { name: 'Relaxation Exercises', pages: 'Pág. 15', description: 'Ejercicios de relajación' },
+                { name: 'Timing Exercises', pages: 'Pág. 16', description: 'Ejercicios de tiempo' },
+                { name: 'Stick Control Exercises', pages: 'Pág. 21', description: 'Control de baquetas' },
+              ],
+            },
+            {
+              tier: 'Tier 1',
+              level: 'Rudimentos Padre (Fundamentales)',
+              color: '#4CAF50',
+              sections: [
+                { name: 'Single Stroke Roll', pages: 'Pág. 29', description: 'Base de toda técnica' },
+                { name: 'Multiple Bounce Roll', pages: 'Pág. 41', description: 'Redoble de múltiples rebotes' },
+                { name: 'Double Stroke Roll', pages: 'Pág. 44', description: 'Golpes dobles fundamentales' },
+                { name: 'Single Paradiddle', pages: 'Pág. 70', description: 'Paradiddle básico' },
+                { name: 'Flam', pages: 'Pág. 76', description: 'Golpe apoyado fundamental' },
+                { name: 'Drag', pages: 'Pág. 109', description: 'Arrastre básico' },
+              ],
+            },
+            {
+              tier: 'Tier 2',
+              level: 'Derivados (Básico-Intermedio)',
+              color: '#FF9800',
+              sections: [
+                { name: 'Single Stroke Four', pages: 'Pág. 29', description: 'Variación de golpes simples' },
+                { name: 'Single Stroke Seven', pages: 'Pág. 29', description: 'Variación extendida' },
+                { name: '5 Stroke Roll', pages: 'Pág. 49', description: 'Redoble de 5 golpes' },
+                { name: '7 Stroke Roll', pages: 'Pág. 49', description: 'Redoble de 7 golpes' },
+                { name: 'Double Paradiddle', pages: 'Pág. 70', description: 'Paradiddle doble' },
+                { name: 'Flam Accent', pages: 'Pág. 81', description: 'Flam con acento' },
+                { name: 'Flam Tap', pages: 'Pág. 87', description: 'Flam con tap' },
+                { name: 'Flamacue', pages: 'Pág. 83', description: 'Combinación de flam' },
+                { name: 'Single Drag Tap', pages: 'Pág. 112', description: 'Drag con tap' },
+                { name: 'Single Ratamacue', pages: 'Pág. 120', description: 'Ratamacue simple' },
+              ],
+            },
+            {
+              tier: 'Tier 3',
+              level: 'Complejos (Intermedio-Avanzado)',
+              color: '#F44336',
+              sections: [
+                { name: '9 Stroke Roll', pages: 'Pág. 49', description: 'Redoble de 9 golpes' },
+                { name: '11 Stroke Roll', pages: 'Pág. 49', description: 'Redoble de 11 golpes' },
+                { name: '13 Stroke Roll', pages: 'Pág. 49', description: 'Redoble de 13 golpes' },
+                { name: '15 Stroke Roll', pages: 'Pág. 49', description: 'Redoble de 15 golpes' },
+                { name: 'Triple Paradiddle', pages: 'Pág. 70', description: 'Paradiddle triple' },
+                { name: 'Paradiddle-Diddle', pages: 'Pág. 75', description: 'Paradiddle con diddle' },
+                { name: 'Flam Paradiddle', pages: 'Pág. 85', description: 'Flam con paradiddle' },
+                { name: 'Double Drag Tap', pages: 'Pág. 115', description: 'Drag doble con tap' },
+                { name: 'Single Drag Paradiddle', pages: 'Pág. 118', description: 'Drag con paradiddle' },
+                { name: 'Double Ratamacue', pages: 'Pág. 123', description: 'Ratamacue doble' },
+              ],
+            },
+            {
+              tier: 'Tier 4',
+              level: 'Maestría (Avanzado)',
+              color: '#9C27B0',
+              sections: [
+                { name: '17 Stroke Roll', pages: 'Pág. 49', description: 'Redoble de 17 golpes' },
+                { name: 'Flam Paradiddle-Diddle', pages: 'Pág. 90', description: 'Combinación híbrida' },
+                { name: 'Pataflafla', pages: 'Pág. 92', description: 'Rudimento complejo' },
+                { name: 'Swiss Army Triplet', pages: 'Pág. 94', description: 'Tresillo suizo' },
+                { name: 'Inverted Flam Tap', pages: 'Pág. 97', description: 'Flam tap invertido' },
+                { name: 'Flam Drag', pages: 'Pág. 99', description: 'Flam con drag' },
+                { name: 'Flam Stutters / Flam Fives', pages: 'Pág. 101', description: 'Flam stutter' },
+                { name: 'Triple Ratamacue', pages: 'Pág. 125', description: 'Ratamacue triple' },
+                { name: 'All Rudiment Combinations', pages: 'Pág. 129', description: 'Combinaciones avanzadas' },
+                { name: 'Back Sticking', pages: 'Pág. 137', description: 'Técnica visual' },
+              ],
+            },
+          ],
+        },
       ],
     },
     {
@@ -430,38 +516,89 @@ const DrumStudyGuide: React.FC = () => {
                         </AccordionSummary>
 
                         <AccordionDetails sx={{ p: 3, bgcolor: alpha(section.color, 0.02) }}>
-                          {/* Golden Rule */}
-                          <Paper
-                            elevation={3}
-                            sx={{
-                              p: 3,
-                              mb: 3,
-                              background: `linear-gradient(135deg, ${alpha(theme.palette.warning.main, 0.15)} 0%, ${alpha(theme.palette.error.main, 0.15)} 100%)`,
-                              border: `3px solid ${theme.palette.warning.main}`,
-                              borderRadius: 2,
-                            }}
-                          >
-                            <Stack direction="row" spacing={2} alignItems="center">
-                              <Box
-                                sx={{
-                                  width: 50,
-                                  height: 50,
-                                  borderRadius: '50%',
-                                  bgcolor: theme.palette.warning.main,
-                                  display: 'flex',
-                                  alignItems: 'center',
-                                  justifyContent: 'center',
-                                  fontSize: '2rem',
-                                }}
-                              >
-                                ⚠️
-                              </Box>
-                              <Box flex={1}>
-                                <Typography variant="h6" fontWeight="bold" color="warning.main" gutterBottom>
-                                  REGLA DE ORO DEL AUTOR
-                                </Typography>
-                                <Typography variant="body1" fontWeight="600">
-                                  Practica cada ejercicio 20 veces sin parar antes de pasar al siguiente.
+                          {/* Golden Rule - Solo para Stick Control */}
+                          {book.id === 'stick-control' && (
+                            <Paper
+                              elevation={3}
+                              sx={{
+                                p: 3,
+                                mb: 3,
+                                background: `linear-gradient(135deg, ${alpha(theme.palette.warning.main, 0.15)} 0%, ${alpha(theme.palette.error.main, 0.15)} 100%)`,
+                                border: `3px solid ${theme.palette.warning.main}`,
+                                borderRadius: 2,
+                              }}
+                            >
+                              <Stack direction="row" spacing={2} alignItems="center">
+                                <Box
+                                  sx={{
+                                    width: 50,
+                                    height: 50,
+                                    borderRadius: '50%',
+                                    bgcolor: theme.palette.warning.main,
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    fontSize: '2rem',
+                                  }}
+                                >
+                                  ⚠️
+                                </Box>
+                                <Box flex={1}>
+                                  <Typography variant="h6" fontWeight="bold" color="warning.main" gutterBottom>
+                                    REGLA DE ORO DEL AUTOR
+                                  </Typography>
+                                  <Typography variant="body1" fontWeight="600">
+                                    Practica cada ejercicio 20 veces sin parar antes de pasar al siguiente.
+                                  </Typography>
+                                  <Typography variant="body2" color="text.secondary" mt={1}>
+                                    Esta es la recomendación de George Lawrence Stone para obtener resultados satisfactorios.
+                                  </Typography>
+                                </Box>
+                              </Stack>
+                            </Paper>
+                          )}
+
+                          {/* Tier System Info - Solo para Rudimental Reference */}
+                          {book.id === 'rudimental-reference' && (
+                            <Paper
+                              elevation={3}
+                              sx={{
+                                p: 3,
+                                mb: 3,
+                                background: `linear-gradient(135deg, ${alpha(theme.palette.info.main, 0.15)} 0%, ${alpha(theme.palette.secondary.main, 0.15)} 100%)`,
+                                border: `3px solid ${theme.palette.info.main}`,
+                                borderRadius: 2,
+                              }}
+                            >
+                              <Stack direction="row" spacing={2} alignItems="center">
+                                <Box
+                                  sx={{
+                                    width: 50,
+                                    height: 50,
+                                    borderRadius: '50%',
+                                    bgcolor: theme.palette.info.main,
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    fontSize: '2rem',
+                                  }}
+                                >
+                                  📊
+                                </Box>
+                                <Box flex={1}>
+                                  <Typography variant="h6" fontWeight="bold" color="info.main" gutterBottom>
+                                    SISTEMA DE PROGRESIÓN POR TIERS
+                                  </Typography>
+                                  <Typography variant="body1" fontWeight="600">
+                                    NO avances al siguiente Tier sin dominar completamente el anterior.
+                                  </Typography>
+                                  <Typography variant="body2" color="text.secondary" mt={1}>
+                                    Los rudimentos "padre" del Tier 1 son la base de todo. Cada nivel superior depende del control desarrollado en los niveles anteriores.
+                                  </Typography>
+                                </Box>
+                              </Stack>
+                            </Paper>
+                          )}
                                 </Typography>
                                 <Typography variant="body2" color="text.secondary" mt={1}>
                                   Esta es la recomendación de George Lawrence Stone para obtener resultados satisfactorios.
@@ -485,9 +622,80 @@ const DrumStudyGuide: React.FC = () => {
                             </Typography>
                           </Paper>
 
-                          {/* Exercises */}
-                          <Grid container spacing={2}>
-                            {book.exercises.map((exercise: any, idx: number) => (
+                          {/* Tiers - Para Rudimental Reference */}
+                          {book.tiers ? (
+                            <Stack spacing={3}>
+                              {book.tiers.map((tier: any, tierIdx: number) => (
+                                <Card
+                                  key={tierIdx}
+                                  sx={{
+                                    border: `2px solid ${tier.color}`,
+                                    borderRadius: 2,
+                                    overflow: 'hidden',
+                                  }}
+                                >
+                                  <Box
+                                    sx={{
+                                      background: `linear-gradient(135deg, ${alpha(tier.color, 0.15)} 0%, ${alpha(tier.color, 0.05)} 100%)`,
+                                      p: 2,
+                                      borderBottom: `2px solid ${tier.color}`,
+                                    }}
+                                  >
+                                    <Stack direction="row" spacing={2} alignItems="center">
+                                      <Chip
+                                        label={tier.tier}
+                                        sx={{
+                                          bgcolor: tier.color,
+                                          color: 'white',
+                                          fontWeight: 'bold',
+                                          fontSize: '0.9rem',
+                                        }}
+                                      />
+                                      <Box>
+                                        <Typography variant="h6" fontWeight="bold" sx={{ color: tier.color }}>
+                                          {tier.level}
+                                        </Typography>
+                                      </Box>
+                                    </Stack>
+                                  </Box>
+                                  <Box sx={{ p: 2 }}>
+                                    <Grid container spacing={1.5}>
+                                      {tier.sections.map((item: any, idx: number) => (
+                                        <Grid item xs={12} sm={6} md={4} key={idx}>
+                                          <Paper
+                                            sx={{
+                                              p: 1.5,
+                                              bgcolor: alpha(tier.color, 0.05),
+                                              border: `1px solid ${alpha(tier.color, 0.2)}`,
+                                              transition: 'all 0.2s',
+                                              '&:hover': {
+                                                bgcolor: alpha(tier.color, 0.1),
+                                                transform: 'translateY(-2px)',
+                                                boxShadow: 2,
+                                              },
+                                            }}
+                                          >
+                                            <Typography variant="subtitle2" fontWeight="bold" gutterBottom>
+                                              {item.name}
+                                            </Typography>
+                                            <Typography variant="caption" display="block" sx={{ color: tier.color, fontWeight: 'bold', mb: 0.5 }}>
+                                              {item.pages}
+                                            </Typography>
+                                            <Typography variant="caption" color="text.secondary">
+                                              {item.description}
+                                            </Typography>
+                                          </Paper>
+                                        </Grid>
+                                      ))}
+                                    </Grid>
+                                  </Box>
+                                </Card>
+                              ))}
+                            </Stack>
+                          ) : (
+                            /* Exercises - Para Stick Control */
+                            <Grid container spacing={2}>
+                              {book.exercises?.map((exercise: any, idx: number) => (
                               <Grid item xs={12} md={6} key={idx}>
                                 <Card
                                   sx={{
@@ -556,6 +764,7 @@ const DrumStudyGuide: React.FC = () => {
                               </Grid>
                             ))}
                           </Grid>
+                          )}
                         </AccordionDetails>
                       </Accordion>
                     ))}
