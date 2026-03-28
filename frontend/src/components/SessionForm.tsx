@@ -24,6 +24,7 @@ interface SessionFormProps {
   onSubmit: (data: SessionFormData) => Promise<void>;
   initialData?: Partial<SessionFormData>;
   title?: string;
+  instrument?: string;
 }
 
 interface ExerciseEntry {

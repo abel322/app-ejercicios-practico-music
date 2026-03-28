@@ -1,6 +1,6 @@
 /// <reference lib="webworker" />
 import { clientsClaim } from 'workbox-core';
-import { precacheAndRoute, createHandlerBoundToURL } from 'workbox-precaching';
+import { precacheAndRoute } from 'workbox-precaching';
 import { registerRoute, NavigationRoute } from 'workbox-routing';
 
 declare const self: ServiceWorkerGlobalScope;

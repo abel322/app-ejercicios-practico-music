@@ -114,7 +114,12 @@ export const sessionService = {
           date: data.date,
           durationMinutes: data.durationMinutes,
           notes: data.notes || '',
-          exercises: data.exercises,
+          exercises: data.exercises.map((e, index) => ({
+            id: `temp-ex-${Date.now()}-${index}`,
+            sessionId: `temp-${Date.now()}`,
+            exerciseId: e.exerciseId,
+            durationMinutes: e.durationMinutes
+          })),
           createdAt: new Date().toISOString(),
           updatedAt: new Date().toISOString(),
         };
@@ -152,7 +157,18 @@ export const sessionService = {
         // Actualizar localmente en IndexedDB
         const cachedSession = await getItem<Session>(STORES.SESSIONS, id);
         if (cachedSession) {
-          const updatedSession = { ...cachedSession, ...data, updatedAt: new Date().toISOString() };
+          const updatedSession: Session = { 
+            ...cachedSession, 
+            ...data, 
+            notes: data.notes !== undefined ? data.notes : cachedSession.notes,
+            exercises: data.exercises ? data.exercises.map((e, index) => ({
+              id: `temp-ex-${Date.now()}-${index}`,
+              sessionId: cachedSession.id,
+              exerciseId: e.exerciseId,
+              durationMinutes: e.durationMinutes
+            })) : cachedSession.exercises,
+            updatedAt: new Date().toISOString() 
+          };
           await saveItem(STORES.SESSIONS, updatedSession);
           return updatedSession;
         }

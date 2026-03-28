@@ -1,8 +1,10 @@
-export enum ExerciseStatus {
-  NOT_STARTED = 'NOT_STARTED',
-  IN_PROGRESS = 'IN_PROGRESS',
-  MASTERED = 'MASTERED',
-}
+export const ExerciseStatus = {
+  NOT_STARTED: 'NOT_STARTED',
+  IN_PROGRESS: 'IN_PROGRESS',
+  MASTERED: 'MASTERED',
+} as const;
+
+export type ExerciseStatus = typeof ExerciseStatus[keyof typeof ExerciseStatus];
 
 export interface ExerciseProgress {
   id: string;
