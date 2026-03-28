@@ -112,6 +112,7 @@ const LevelDisplay: React.FC<LevelDisplayProps> = ({ instrument }) => {
   }
 
   const { level, progress } = levelData;
+  const instrumentInfo = getInstrumentInfo(instrument);
 
   return (
     <Container maxWidth="lg">
