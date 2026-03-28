@@ -28,6 +28,7 @@ import type { Goal } from '../types/goal.types';
 interface GoalHistoryProps {
   onEdit?: (goal: Goal) => void;
   onRefresh?: () => void;
+  instrument?: string;
 }
 
 const GoalHistory: React.FC<GoalHistoryProps> = ({ onEdit, onRefresh }) => {

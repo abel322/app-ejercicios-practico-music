@@ -21,7 +21,8 @@ import {
   TrendingUp,
 } from '@mui/icons-material';
 import { exerciseProgressService } from '../services/exerciseProgressService';
-import type { ExerciseProgress, ExerciseStatus } from '../types/exercise-progress.types';
+import type { ExerciseProgress } from '../types/exercise-progress.types';
+import { ExerciseStatus } from '../types/exercise-progress.types';
 import LoadingSpinner from '../components/LoadingSpinner';
 import StatsCard from '../components/StatsCard';
 

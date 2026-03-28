@@ -10,9 +10,10 @@ interface StatsCardProps {
     value: number;
     direction: 'up' | 'down';
   };
+  color?: 'primary' | 'secondary' | 'success' | 'error' | 'warning' | 'info' | string;
 }
 
-const StatsCard: React.FC<StatsCardProps> = ({ title, value, icon, trend }) => {
+const StatsCard: React.FC<StatsCardProps> = ({ title, value, icon, trend, color = 'primary' }) => {
   return (
     <Card
       role="article"
@@ -39,8 +40,8 @@ const StatsCard: React.FC<StatsCardProps> = ({ title, value, icon, trend }) => {
               width: 48,
               height: 48,
               borderRadius: 2,
-              bgcolor: 'primary.main',
-              color: 'primary.contrastText',
+              bgcolor: `${color}.main`,
+              color: `${color}.contrastText`,
               mr: 2,
             }}
           >

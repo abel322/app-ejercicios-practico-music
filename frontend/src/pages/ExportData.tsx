@@ -28,10 +28,10 @@ const ExportData: React.FC = () => {
     setLoadingJSON(true);
     try {
       await exportService.exportData();
-      showNotification('success', 'Datos exportados exitosamente en formato JSON');
+      showNotification('Datos exportados exitosamente en formato JSON', 'success');
     } catch (error) {
       console.error('Error exporting JSON:', error);
-      showNotification('error', 'Error al exportar los datos. Por favor, intenta de nuevo.');
+      showNotification('Error al exportar los datos. Por favor, intenta de nuevo.', 'error');
     } finally {
       setLoadingJSON(false);
     }
@@ -41,10 +41,10 @@ const ExportData: React.FC = () => {
     setLoadingCSV(true);
     try {
       await exportService.exportStats();
-      showNotification('success', 'Estadísticas exportadas exitosamente en formato CSV');
+      showNotification('Estadísticas exportadas exitosamente en formato CSV', 'success');
     } catch (error) {
       console.error('Error exporting CSV:', error);
-      showNotification('error', 'Error al exportar las estadísticas. Por favor, intenta de nuevo.');
+      showNotification('Error al exportar las estadísticas. Por favor, intenta de nuevo.', 'error');
     } finally {
       setLoadingCSV(false);
     }

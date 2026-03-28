@@ -14,7 +14,6 @@ import {
   CardContent,
   Chip,
   Divider,
-  useTheme,
 } from '@mui/material';
 import {
   Timer,
@@ -35,8 +34,6 @@ import PracticeChart from '../components/PracticeChart';
 import InstrumentDistribution from '../components/InstrumentDistribution';
 import TopExercises from '../components/TopExercises';
 import GoalProgress from '../components/GoalProgress';
-import RecommendationsPreview from '../components/RecommendationsPreview';
-import PredictionPreview from '../components/PredictionPreview';
 import LiveRegion from '../components/LiveRegion';
 import { dashboardService } from '../services/dashboardService';
 import { goalService } from '../services/goalService';
@@ -91,7 +88,6 @@ const instruments: Instrument[] = [
 ];
 
 const Dashboard: React.FC = () => {
-  const theme = useTheme();
   const { showNotification } = useNotification();
   const [currentTab, setCurrentTab] = useState(0);
   const [loading, setLoading] = useState(true);
@@ -252,7 +248,7 @@ const Dashboard: React.FC = () => {
   // Check if there's no data
   const hasNoData = generalStats && generalStats.totalSessions === 0;
 
-  const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
+  const handleTabChange = (_event: React.SyntheticEvent, newValue: number) => {
     setCurrentTab(newValue);
   };
 
@@ -367,7 +363,7 @@ const Dashboard: React.FC = () => {
                   iconPosition="start"
                   sx={{ gap: 1 }}
                 />
-                {instruments.map((instrument, index) => (
+                {instruments.map((instrument) => (
                   <Tab
                     key={instrument.id}
                     icon={instrument.icon}

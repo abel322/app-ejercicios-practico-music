@@ -1972,15 +1972,15 @@ const DrumStudyGuide: React.FC = () => {
               <Paper
                 sx={{
                   p: 2,
-                  bgcolor: alpha(theme.palette[item.color as keyof typeof theme.palette].main, 0.1),
-                  border: `2px solid ${alpha(theme.palette[item.color as keyof typeof theme.palette].main, 0.3)}`,
+                  bgcolor: alpha((theme.palette as any)[item.color].main, 0.1),
+                  border: `2px solid ${alpha((theme.palette as any)[item.color].main, 0.3)}`,
                 }}
               >
                 <Chip
                   label={item.time}
                   size="small"
                   sx={{
-                    bgcolor: theme.palette[item.color as keyof typeof theme.palette].main,
+                    bgcolor: (theme.palette as any)[item.color].main,
                     color: 'white',
                     fontWeight: 'bold',
                     mb: 1,

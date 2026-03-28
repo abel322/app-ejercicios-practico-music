@@ -84,7 +84,7 @@ const RecommendationsList: React.FC<RecommendationsListProps> = ({ instrument })
       case 'getting_started':
         return <GettingStartedIcon />;
       default:
-        return <MusicNote />;
+        return <ExerciseIcon />;
     }
   };
 

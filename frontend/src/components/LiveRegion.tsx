@@ -4,7 +4,6 @@ import { Box } from '@mui/material';
 interface LiveRegionProps {
   message: string;
   politeness?: 'polite' | 'assertive' | 'off';
-  clearOnUnmount?: boolean;
 }
 
 /**
@@ -14,7 +13,6 @@ interface LiveRegionProps {
 const LiveRegion: React.FC<LiveRegionProps> = ({
   message,
   politeness = 'polite',
-  clearOnUnmount = true,
 }) => {
   return (
     <Box

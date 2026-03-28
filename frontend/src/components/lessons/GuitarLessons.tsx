@@ -12,7 +12,7 @@ import {
   Button,
   Stack,
 } from '@mui/material';
-import { ExpandMore as ExpandMoreIcon, PlayArrow, GraphicEq, MusicNote } from '@mui/icons-material';
+import { ExpandMore as ExpandMoreIcon, PlayArrow } from '@mui/icons-material';
 
 interface Lesson {
   id: string;
@@ -25,7 +25,7 @@ interface Lesson {
 const GuitarLessons: React.FC = () => {
   const [expandedLesson, setExpandedLesson] = useState<string | false>(false);
 
-  const handleLessonChange = (panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
+  const handleLessonChange = (panel: string) => (_event: React.SyntheticEvent, isExpanded: boolean) => {
     setExpandedLesson(isExpanded ? panel : false);
   };
 

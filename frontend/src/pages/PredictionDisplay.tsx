@@ -191,7 +191,7 @@ const PredictionDisplay: React.FC<PredictionDisplayProps> = ({ instrument }) => 
           <Chip
             label={getLevelLabel(prediction.nextLevel)}
             color="primary"
-            size="large"
+            size="medium"
             sx={{ fontSize: '1.1rem', py: 2.5, px: 1 }}
           />
         </Paper>

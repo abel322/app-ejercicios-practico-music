@@ -15,15 +15,7 @@ import {
   Paper,
   Chip,
   Rating,
-  Slider as MuiSlider,
-  FormControl,
-  InputLabel,
-  Select,
-  MenuItem,
   FormLabel,
-  RadioGroup,
-  FormControlLabel,
-  Radio,
 } from '@mui/material';
 import {
   PlayArrow as PlayIcon,
@@ -331,7 +323,6 @@ const PracticeSession: React.FC<PracticeSessionProps> = ({ instrument }) => {
         setShowExerciseSelector(true);
         setSelectedExercise(null);
         setSelectedBook(null);
-        setMetronomeActive(false);
       }
     } else {
       setShowExerciseSelector(true);

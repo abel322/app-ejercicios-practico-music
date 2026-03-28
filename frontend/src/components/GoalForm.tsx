@@ -18,6 +18,7 @@ import type { GoalFormData, GoalType } from '../types/goal.types';
 interface GoalFormProps {
   onSuccess?: () => void;
   onCancel?: () => void;
+  instrument?: string;
 }
 
 const GoalForm: React.FC<GoalFormProps> = ({ onSuccess, onCancel }) => {
