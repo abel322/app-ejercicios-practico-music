@@ -68,7 +68,7 @@ export const Login: React.FC = () => {
     try {
       await login(formData);
       showNotification('Inicio de sesión exitoso', 'success');
-      navigate('/');
+      navigate('/dashboard');
     } catch (error: any) {
       const message = error.response?.data?.error || 'Error al iniciar sesión';
       setApiError(message);

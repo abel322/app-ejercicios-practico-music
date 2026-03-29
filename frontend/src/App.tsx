@@ -17,6 +17,7 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 
 // Páginas protegidas - lazy loading
+const Home = lazy(() => import('./pages/Home'));
 const ForgotPassword = lazy(() => import('./pages/ForgotPassword'));
 const Dashboard = lazy(() => import('./pages/Dashboard'));
 const BookList = lazy(() => import('./pages/BookList'));
@@ -45,13 +46,13 @@ function AppContent() {
       <Suspense fallback={<LoadingSpinner fullScreen />}>
         <Routes>
           {/* Rutas públicas */}
+          <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
 
           {/* Rutas protegidas */}
           <Route
-            path="/"
             element={
               <ProtectedRoute>
                 <AppLayout />
@@ -59,7 +60,7 @@ function AppContent() {
             }
           >
             {/* Rutas generales */}
-            <Route index element={<Dashboard />} />
+            <Route path="/dashboard" element={<Dashboard />} />
             <Route path="lessons" element={<MusicLessons />} />
             <Route path="profile" element={<Profile />} />
             <Route path="export" element={<ExportData />} />

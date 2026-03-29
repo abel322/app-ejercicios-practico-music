@@ -61,7 +61,7 @@ const instruments: Instrument[] = [
 ];
 
 const generalMenuItems: MenuItem[] = [
-  { text: 'Dashboard', icon: <DashboardIcon />, path: '/' },
+  { text: 'Dashboard', icon: <DashboardIcon />, path: '/dashboard' },
   { text: 'Lecciones', icon: <School />, path: '/lessons' },
   { text: 'Perfil', icon: <ProfileIcon />, path: '/profile' },
   { text: 'Exportar', icon: <ExportIcon />, path: '/export' },

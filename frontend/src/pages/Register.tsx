@@ -117,8 +117,8 @@ export const Register: React.FC = () => {
     setIsLoading(true);
     try {
       await register(formData);
-      showNotification('Registro exitoso. ¡Bienvenido!', 'success');
-      navigate('/');
+      showNotification('Registro y login exitoso', 'success');
+      navigate('/dashboard');
     } catch (error: any) {
       const message = error.response?.data?.error || error.message || 'Error al registrarse';
       setApiError(message);
