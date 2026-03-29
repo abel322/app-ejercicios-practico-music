@@ -8,8 +8,8 @@ import type {
 import { enqueueOperation } from '../utils/offlineQueue';
 
 // Configurar baseURL de axios
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
-
+//const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
+const API_BASE_URL = "https://api--app-ejercicios-practico-music--vbfv9hwvdjf6.code.run";
 const api = axios.create({
   baseURL: API_BASE_URL,
   headers: {
